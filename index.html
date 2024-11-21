@@ -1,0 +1,74 @@
+<html>
+<head>
+    <title>Stream App</title>
+    <style>
+        * { font-size: 2vw; font-family: Calibri; }
+        body { background-color: lightyellow; }
+        h1 { border: solid; border-radius: 2vw; width: 50%; background-color: white; }
+        form { border: solid; border-radius: 2vw; width: 50%; background-color: white; padding: 20px; }
+        
+        /* Media query for smaller screen sizes */
+        @media (max-width: 600px) {
+            * { font-size: 4vw; }
+            h1, form { width: 90%; }
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>Stream Selection App</h1>
+        <form onsubmit="return select(event)">
+            <label>Student Name:</label>
+            <input type="text" placeholder="Enter name" id="name">
+            <br /><br />
+            <label>Select Your Stream:</label><br /><br />
+            <input type="radio" id="com" name="st" value="Commerce" checked="true"> Commerce
+            <input type="radio" id="art" name="st" value="Arts"> Arts
+            <input type="radio" id="sci" name="st" value="Science"> Science
+            <br /><br />
+            <input type="submit" value="Select">
+        </form>
+        <h2 id="msg"></h2>
+    </center>
+
+    <script>
+        function select(event) {
+            // Prevent default form submission
+            event.preventDefault();
+            
+            let name = document.getElementById("name");
+            let com = document.getElementById("com");
+            let art = document.getElementById("art");
+            let sci = document.getElementById("sci");
+            let msg = document.getElementById("msg");
+
+            // Check for empty name input
+            if (name.value === "") {
+                alert("Please enter name");
+                msg.innerHTML = "";
+                name.focus();
+                return false;
+            }
+
+            // Check if name contains only alphabets and spaces
+            if (!name.value.match("^[A-Za-z ]+$")) {
+                alert("Name should contain only alphabets");
+                msg.innerHTML = "";
+                name.focus();
+                return false;
+            }
+
+            // Build the order string based on selected 
+            let ans = "";
+            if (com.checked) ans ="Commerce ";
+            if (art.checked) ans ="Arts ";
+            if (sci.checked) ans ="Science ";
+
+            // Display the result
+            msg.innerHTML = "Welcome !,       " + name.value + "<br>" + "Your Stream is " + ans;
+            
+            return false;  // Prevent form submission
+        }
+    </script>
+</body>
+</html>
